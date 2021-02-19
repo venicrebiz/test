@@ -5,8 +5,27 @@
     <title>test</title>
   </head>
   <body>
-    <a href="gncapp://">iOS 골프문화상품권 앱을 실행합니다.</a>
-    <br><br><br><br>
-    <a href="golfnculture://">Android 골프문화상품권 앱을 실행합니다.</a>
+    <a href="javascript:;" onclick="mo_click()">골프문화상품권 앱 실행</a>
   </body>
+  <script>
+    function mo_click(){
+      var userAgent = navigator.userAgent;
+      var visiteTm = ( new Date() ).getTime();
+      if(userAgent.match(".*Android.*")){ 
+        //안드로이드폰
+        // https://developer.chrome.com/multidevice/android/intents
+        // 앱이 있으면 앱 실행, 없으면 마켓 이동
+        location.href = 'intent://golfnculture#Intent;scheme=golfnculture;package=com.golfzon.golfnculture;end';
+      }else if(userAgent.match(".*iPhone.*") || userAgent.match(".*iPad.*")){
+        //아이폰
+        setTimeout( function () {
+          if ( ( new Date() ).getTime() - visiteTm < 3000 ) { // 앱스토어 이동
+            location.href = "https://itunes.apple.com/app/id1475576453";
+          } } ,2500 );
+          setTimeout( function () { // 앱실행
+            location.href = "gncapp://";
+          } ,0 );
+        }
+    }
+    </script>
 </html>
